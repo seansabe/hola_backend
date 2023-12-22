@@ -16,7 +16,7 @@ npm start
 ## Endpoints
 
 # Create a new customer
-POST ```/api/customers ```
+POST ```/api/customers```
 
 # Get a specific customer
 GET ```/api/customers/:id```
