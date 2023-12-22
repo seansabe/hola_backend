@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// Define the Customer schema
 const CustomerSchema = new Schema({
     firstName: {
         type: String,
@@ -24,7 +23,11 @@ const CustomerSchema = new Schema({
         type: String,
         required: true,
         unique: true
+    },
+    hasSignedPolicy: {
+        type: Boolean,
+        required: true
     }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Customer', CustomerSchema);
