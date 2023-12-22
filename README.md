@@ -13,7 +13,6 @@ that are used in ```db.js```
 MONGODB_URI=mongodb url
 DEFAULT_USER_EMAIL=email
 DEFAULT_USER_PASSWORD=password
-
 ```
 
 
