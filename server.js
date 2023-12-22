@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const customerRoutes = require('./routes/customerRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
 const importRoutes = require('./routes/importRoutes');
+const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middleware/error');
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use('/api/customers', customerRoutes);
 app.use('/api/attendance', attendanceRoutes);
 app.use('/api/import', importRoutes);
+app.use('/api/users', userRoutes);
 
 // Error handling middleware
 app.use(errorHandler);

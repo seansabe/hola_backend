@@ -10,19 +10,10 @@ const CustomerSchema = new Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: false
-    },
     userType: {
         type: String,
-        enum: ['student', 'staff', 'alumni', 'community', 'admin'],
+        enum: ['student', 'staff', 'alumni', 'community'],
         required: true
-    },
-    passwrord: {
-        type: String,
-        default: '0000',
-        required: false
     },
     userId: {
         type: String,
