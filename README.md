@@ -2,15 +2,24 @@
 
 ## Description
 
-This is a voluntary project developed to track attendance for the Douglas College Fitness Centre customers
+This is a voluntary project developed to track attendance for the Douglas College Fitness Centre customers.
 
 ## Installation
+
+It is important to create an ```.env``` at the root level with the following enviroment variables
+that are used in ```db.js```
+
+```
+MONGODB_URI=mongodb url
+DEFAULT_USER_EMAIL=email
+DEFAULT_USER_PASSWORD=password
+
+```
 
 
 ```bash
 npm install express mongoose dotenv fast-csv express-fileupload
 npm start
-
 ```
 
 ## Endpoints
@@ -35,3 +44,15 @@ POST ```/api/customers/delete```
 
 ### Delete all customers
 DELETE ```/api/customers```
+
+### Register attendance
+POST ```/api/attendance```
+
+### Bulk import customers from CSV
+POST ```/api/import```
+
+### Create system's users
+POST ```/api/users```
+
+### Login
+POST ```/api/users/login```
