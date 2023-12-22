@@ -6,7 +6,7 @@ This is a voluntary project developed to track attendance for the Douglas Colleg
 
 ## Installation
 
-It is important to create an ```.env``` at the root level with the following enviroment variables
+Note that is important to create an ```.env``` file at the root level with the following environment variables
 that are used in ```db.js```
 
 ```
