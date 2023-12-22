@@ -2,7 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const customerRoutes = require('./routes/customerRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
-const importRoutes = require('./routes/import');
+const importRoutes = require('./routes/importRoutes');
 const errorHandler = require('./middleware/error');
 
 const app = express();
@@ -21,6 +21,6 @@ app.use('/api/import', importRoutes);
 // Error handling middleware
 app.use(errorHandler);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 
 app.listen(port, () => console.log(`Server started on port ${port}`));

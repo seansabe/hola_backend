@@ -4,10 +4,10 @@ const customerController = require('../controllers/customerController');
 
 router.post('/', customerController.createCustomer);
 router.get('/:id', customerController.getCustomer);
-router.put('/customer/:id/policy', customerController.updateCustomerPolicy);
-router.put('/customer/:id', customerController.updateCustomer);
-router.delete('/customer/:id', customerController.deleteCustomer);
-router.post('/customers/delete', customerController.bulkDeleteCustomers);
-router.delete('/customers', customerController.deleteAllCustomers);
+router.put('/:id/policy', customerController.updateCustomerPolicy);
+router.put('/:id', customerController.updateCustomer);
+router.delete('/:id', customerController.deleteCustomer);
+router.post('/delete', customerController.bulkDeleteCustomers);
+router.delete('/', customerController.deleteAllCustomers);
 
 module.exports = router;
