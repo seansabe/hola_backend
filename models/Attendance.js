@@ -11,10 +11,6 @@ const AttendanceSchema = new Schema({
     date: {
         type: Date,
         default: Date.now
-    },
-    validated: {
-        type: Boolean,
-        default: false
     }
 });
 

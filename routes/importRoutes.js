@@ -4,7 +4,7 @@ const csv = require('fast-csv');
 const fs = require('fs');
 const Customer = require('../models/Customer');
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
@@ -13,21 +13,30 @@ router.post('/', (req, res) => {
 
     let customers = [];
 
-    csv.parseString(customersFile.data.toString(), {
-        headers: true,
-        ignoreEmpty: true
-    })
-        .on("data", function (data) {
-            data['_id'] = new mongoose.Types.ObjectId();
+    const dataHandler = async (data) => {
+        data['_id'] = new mongoose.Types.ObjectId();
 
+        // Check if the customer already exists
+        const existingCustomer = await Customer.findOne({ userId: data['userId'] });
+        if (!existingCustomer) {
             customers.push(data);
+        }
+    };
+
+    await new Promise((resolve, reject) => {
+        csv.parseString(customersFile.data.toString(), {
+            headers: true,
+            ignoreEmpty: true
         })
-        .on("end", function () {
-            Customer.create(customers, (err, documents) => {
-                if (err) throw err;
-                res.send(documents);
-            });
-        });
+            .on("data", dataHandler)
+            .on("end", resolve)
+            .on("error", reject);
+    });
+
+    Customer.create(customers, (err, documents) => {
+        if (err) throw err;
+        res.send(documents);
+    });
 });
 
 module.exports = router;

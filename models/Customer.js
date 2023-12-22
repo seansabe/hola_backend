@@ -16,10 +16,15 @@ const CustomerSchema = new Schema({
     },
     userType: {
         type: String,
-        enum: ['student', 'staff', 'alumni', 'community'],
+        enum: ['student', 'staff', 'alumni', 'community', 'admin'],
         required: true
     },
-    id: {
+    passwrord: {
+        type: String,
+        default: '0000',
+        required: false
+    },
+    userId: {
         type: String,
         required: true,
         unique: true
@@ -27,7 +32,11 @@ const CustomerSchema = new Schema({
     hasSignedPolicy: {
         type: Boolean,
         required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
-}, { timestamps: true });
+});
 
 module.exports = mongoose.model('Customer', CustomerSchema);
