@@ -15,23 +15,23 @@ npm start
 
 ## Endpoints
 
-## Create a new customer
+### Create a new customer
 POST ```/api/customers```
 
-## Get a specific customer
+### Get a specific customer
 GET ```/api/customers/:id```
 
-## Update a customer's policy
+### Update a customer's policy
 PUT ```/api/customers/:id/policy```
 
-## Update a customer
+### Update a customer
 PUT ```/api/customers/:id```
 
-## Delete a customer
+### Delete a customer
 DELETE ```/api/customers/:id```
 
-## Bulk delete customers
+### Bulk delete customers
 POST ```/api/customers/delete```
 
-## Delete all customers
+### Delete all customers
 DELETE ```/api/customers```
