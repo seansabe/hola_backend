@@ -12,9 +12,37 @@ exports.createCustomer = async (req, res) => {
 
 exports.getCustomer = async (req, res) => {
     try {
-        const customer = await Customer.findById(req.params.id);
+        const customer = await Customer.findById(req.params.customerId);
         if (!customer) return res.status(404).json({ message: 'Customer not found' });
         res.status(200).json(customer);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Get all customers with pagination that contain a search query in their name, last name or customerId
+exports.getCustomers = async (req, res) => {
+    try {
+        const { page, limit, search } = req.query;
+        const query = {
+            $or: [
+                { firstName: { $regex: search, $options: 'i' } },
+                { lastName: { $regex: search, $options: 'i' } },
+                { customerId: { $regex: search, $options: 'i' } }
+            ]
+        };
+        const customers = await Customer.find(query)
+            .limit(limit * 1)
+            .skip((page - 1) * limit)
+            .exec();
+
+        const count = await Customer.countDocuments(query);
+
+        res.status(200).json({
+            customers,
+            totalPages: Math.ceil(count / limit),
+            currentPage: page
+        });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -23,7 +51,7 @@ exports.getCustomer = async (req, res) => {
 exports.updateCustomerPolicy = async (req, res) => {
     try {
         const updatedCustomer = await Customer.findOneAndUpdate(
-            { id: req.params.id },
+            { customerId: req.params.customerId },
             { hasSignedPolicy: true },
             { new: true, upsert: true }
         );
@@ -39,8 +67,8 @@ exports.updateCustomerPolicy = async (req, res) => {
 exports.updateCustomer = async (req, res) => {
     try {
         const updatedCustomer = await Customer.findOneAndUpdate(
-            { id: req.params.id },
-            req.body,
+            { customerId: req.params.customerId },
+            { $set: req.body },
             { new: true }
         );
 
@@ -54,7 +82,7 @@ exports.updateCustomer = async (req, res) => {
 // Delete a customer
 exports.deleteCustomer = async (req, res) => {
     try {
-        const deletedCustomer = await Customer.findOneAndDelete({ id: req.params.id });
+        const deletedCustomer = await Customer.findOneAndDelete({ customerId: req.params.customerId });
 
         if (!deletedCustomer) return res.status(404).json({ message: 'Customer not found' });
         res.status(200).json({ message: 'Customer deleted' });
@@ -67,7 +95,7 @@ exports.deleteCustomer = async (req, res) => {
 exports.bulkDeleteCustomers = async (req, res) => {
     try {
         const idsToDelete = req.body.ids;
-        const deletedCustomers = await Customer.deleteMany({ id: { $in: idsToDelete } });
+        const deletedCustomers = await Customer.deleteMany({ customerId: { $in: idsToDelete } });
 
         res.status(200).json({ message: `${deletedCustomers.deletedCount} customers deleted` });
     } catch (error) {
