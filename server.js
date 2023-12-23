@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // Import cors module
 const connectDB = require('./config/db');
 const customerRoutes = require('./routes/customerRoutes');
 const attendanceRoutes = require('./routes/attendanceRoutes');
@@ -13,6 +14,9 @@ connectDB();
 
 // Middleware to parse JSON
 app.use(express.json());
+
+// Use cors middleware
+app.use(cors());
 
 // Use routes
 app.use('/api/customers', customerRoutes);

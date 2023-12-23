@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
         data['_id'] = new mongoose.Types.ObjectId();
 
         // Check if the customer already exists
-        const existingCustomer = await Customer.findOne({ userId: data['userId'] });
+        const existingCustomer = await Customer.findOne({ customerId: data['customerId'] });
         if (!existingCustomer) {
             customers.push(data);
         }

@@ -10,12 +10,12 @@ const CustomerSchema = new Schema({
         type: String,
         required: true
     },
-    userType: {
+    customerType: {
         type: String,
         enum: ['student', 'staff', 'alumni', 'community'],
         required: true
     },
-    userId: {
+    customerId: {
         type: String,
         required: true,
         unique: true
