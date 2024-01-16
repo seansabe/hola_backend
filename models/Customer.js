@@ -20,6 +20,11 @@ const CustomerSchema = new Schema({
         required: true,
         unique: true
     },
+    barcode: {
+        type: String,
+        required: false,
+        unique: true
+    },
     hasSignedPolicy: {
         type: Boolean,
         required: true

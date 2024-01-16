@@ -10,9 +10,15 @@ exports.createCustomer = async (req, res) => {
     }
 };
 
-exports.getCustomer = async (req, res) => {
+exports.getCustomerByIdOrBarcode = async (req, res) => {
     try {
-        const customer = await Customer.findById(req.params.customerId);
+        const { code } = req.params;
+        const customer = await Customer.findOne({
+            $or: [
+                { customerId: code },
+                { barcode: code }
+            ]
+        });
         if (!customer) return res.status(404).json({ message: 'Customer not found' });
         res.status(200).json(customer);
     } catch (error) {
@@ -28,7 +34,8 @@ exports.getCustomers = async (req, res) => {
             $or: [
                 { firstName: { $regex: search, $options: 'i' } },
                 { lastName: { $regex: search, $options: 'i' } },
-                { customerId: { $regex: search, $options: 'i' } }
+                { customerId: { $regex: search, $options: 'i' } },
+                { barcode: { $regex: search, $options: 'i' } }
             ]
         };
         const customers = await Customer.find(query)

@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 
 // Define the Attendance schema
 const AttendanceSchema = new Schema({
-    customerId: {
-        type: String,
-        required: true,
-        ref: 'Customer'
+    customer: { 
+        type: Schema.Types.ObjectId, 
+        ref: 'Customer', 
+        required: true 
     },
     date: {
         type: Date,
